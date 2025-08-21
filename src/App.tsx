@@ -27,17 +27,17 @@ const transKey = (note: string): number => {
     "B",
   ];
   const keyPattern = /[A-Z]#?/;
-  const matchKey = (note.match(keyPattern) ?? ["C"])[0];
+  const matchKey = (keyPattern.exec(note) ?? ["C"])[0];
   const key = noteList.findIndex((e) => e === matchKey);
   const octave = Number(note.replace(matchKey, "")) * 12;
   const base = 5 + 12 * 4;
   return Math.pow(2, (key + octave - base - 1) / 12);
 };
 
-type WhiteKeyProps = {
+interface WhiteKeyProps {
   noteName?: string;
   onClick: () => void;
-};
+}
 
 const WhiteKey = ({ noteName, onClick, ...props }: WhiteKeyProps) => (
   <Box
@@ -65,10 +65,10 @@ const WhiteKey = ({ noteName, onClick, ...props }: WhiteKeyProps) => (
   </Box>
 );
 
-type BlackKeyProps = {
+interface BlackKeyProps {
   onClick: () => void;
   left: string;
-};
+}
 
 const BlackKey = ({ onClick, ...props }: BlackKeyProps) => (
   <Box
@@ -89,10 +89,10 @@ const BlackKey = ({ onClick, ...props }: BlackKeyProps) => (
   />
 );
 
-type PianoProps = {
+interface PianoProps {
   octave?: number;
   onKeyPress: (note: number) => void;
-};
+}
 
 const Piano = ({ octave = 4, onKeyPress }: PianoProps) => {
   const whiteKeyWidth = 60;
@@ -104,24 +104,28 @@ const Piano = ({ octave = 4, onKeyPress }: PianoProps) => {
     <Flex position="relative" w="fit-content" borderColor="gray.400">
       {/* --- 白鍵 --- */}
       {whiteKeyNotes.map((note) => {
-        const fullNote = `${note}${octave}`;
+        const fullNote = `${note}${String(octave)}`;
         return (
           <WhiteKey
             key={fullNote}
             noteName={note === "C" ? fullNote : undefined}
-            onClick={() => onKeyPress(transKey(fullNote))}
+            onClick={() => {
+              onKeyPress(transKey(fullNote));
+            }}
           />
         );
       })}
 
       {/* --- 黒鍵 --- */}
       {blackKeyPositions.map((whiteKeyIndex, i) => {
-        const fullNote = `${blackKeyNotes[i]}${octave}`;
+        const fullNote = `${blackKeyNotes[i]}${String(octave)}`;
         return (
           <BlackKey
             key={fullNote}
-            left={`${(whiteKeyIndex + 1) * whiteKeyWidth}px`}
-            onClick={() => onKeyPress(transKey(fullNote))}
+            left={`${String((whiteKeyIndex + 1) * whiteKeyWidth)}px`}
+            onClick={() => {
+              onKeyPress(transKey(fullNote));
+            }}
           />
         );
       })}
@@ -136,64 +140,65 @@ function App() {
   };
   return (
     <Provider>
-    <Flex
-      direction="column"
-      h="100vh"
-      justify="center"
-      align="center"
-      bg="gray.100"
-    >
-      <Spacer />
       <Flex
-        w="fit-content"
-        border="2px solid"
-        borderColor="gray.400"
-        overflow="hidden"
-        borderRadius="xl"
-        boxShadow="xl"
+        direction="column"
+        h="100vh"
+        justify="center"
+        align="center"
+        bg="gray.100"
       >
-        <Piano octave={1} onKeyPress={handleKeyPress} />
-        <Piano octave={2} onKeyPress={handleKeyPress} />
-        <Piano octave={3} onKeyPress={handleKeyPress} />
+        <Spacer />
+        <Flex
+          w="fit-content"
+          border="2px solid"
+          borderColor="gray.400"
+          overflow="hidden"
+          borderRadius="xl"
+          boxShadow="xl"
+        >
+          <Piano octave={1} onKeyPress={handleKeyPress} />
+          <Piano octave={2} onKeyPress={handleKeyPress} />
+          <Piano octave={3} onKeyPress={handleKeyPress} />
+        </Flex>
+        <Spacer />
+        <Flex
+          w="fit-content"
+          border="2px solid"
+          borderColor="gray.400"
+          overflow="hidden"
+          borderRadius="xl"
+          boxShadow="xl"
+        >
+          <Piano octave={4} onKeyPress={handleKeyPress} />
+          <Piano octave={5} onKeyPress={handleKeyPress} />
+          <Piano octave={6} onKeyPress={handleKeyPress} />
+        </Flex>
+        <Spacer />
+        <Flex
+          w="fit-content"
+          border="2px solid"
+          borderColor="gray.400"
+          overflow="hidden"
+          borderRadius="xl"
+          boxShadow="xl"
+        >
+          <Piano octave={7} onKeyPress={handleKeyPress} />
+          <Piano octave={8} onKeyPress={handleKeyPress} />
+          <Piano octave={9} onKeyPress={handleKeyPress} />
+        </Flex>
+        <Spacer />
+        <Heading size="5xl" mb={12} h="60px" color="teal.500">
+          <Clipboard.Root value={activeKey}>
+            <Clipboard.Trigger asChild>
+              <IconButton variant="surface" size="xs">
+                <Code size="lg">{activeKey}</Code>
+                <Clipboard.Indicator />
+              </IconButton>
+            </Clipboard.Trigger>
+          </Clipboard.Root>
+        </Heading>
       </Flex>
-      <Spacer />
-      <Flex
-        w="fit-content"
-        border="2px solid"
-        borderColor="gray.400"
-        overflow="hidden"
-        borderRadius="xl"
-        boxShadow="xl"
-      >
-        <Piano octave={4} onKeyPress={handleKeyPress} />
-        <Piano octave={5} onKeyPress={handleKeyPress} />
-        <Piano octave={6} onKeyPress={handleKeyPress} />
-      </Flex>
-      <Spacer />
-      <Flex
-        w="fit-content"
-        border="2px solid"
-        borderColor="gray.400"
-        overflow="hidden"
-        borderRadius="xl"
-        boxShadow="xl"
-      >
-        <Piano octave={7} onKeyPress={handleKeyPress} />
-        <Piano octave={8} onKeyPress={handleKeyPress} />
-        <Piano octave={9} onKeyPress={handleKeyPress} />
-      </Flex>
-      <Spacer />
-      <Heading size="5xl" mb={12} h="60px" color="teal.500">
-        <Clipboard.Root value={activeKey}>
-          <Clipboard.Trigger asChild>
-            <IconButton variant="surface" size="xs">
-              <Code size="lg">{activeKey}</Code>
-              <Clipboard.Indicator />
-            </IconButton>
-          </Clipboard.Trigger>
-        </Clipboard.Root>
-      </Heading>
-    </Flex></Provider>
+    </Provider>
   );
 }
 
