@@ -145,7 +145,6 @@ function App() {
         justify="center"
         align="center"
         bg="gray.100"
-        margin="4px"
       >
         <Heading size="5xl" mb={12} h="60px" color="teal.500">
           <Clipboard.Root value={activeKey}>
