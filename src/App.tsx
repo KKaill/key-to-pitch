@@ -57,7 +57,7 @@ const WhiteKey = ({ noteName, onClick, ...props }: WhiteKeyProps) => (
     {...props}
   >
     {noteName && (
-      <Text fontWeight="bold" fontSize="1px" color="gray.400" userSelect="none">
+      <Text fontWeight="bold" color="gray.500" userSelect="none">
         {noteName}
       </Text>
     )}
