@@ -40,7 +40,7 @@ interface WhiteKeyProps {
 
 const WhiteKey = ({ noteName, onClick, ...props }: WhiteKeyProps) => (
   <Box
-    w="30px"
+    w="25px"
     h="100px"
     bg="white"
     border="1px solid"
@@ -57,7 +57,7 @@ const WhiteKey = ({ noteName, onClick, ...props }: WhiteKeyProps) => (
     {...props}
   >
     {noteName && (
-      <Text fontWeight="bold" color="gray.500" userSelect="none">
+      <Text fontWeight="bold" fontSize="1px" color="gray.400" userSelect="none">
         {noteName}
       </Text>
     )}
@@ -94,7 +94,7 @@ interface PianoProps {
 }
 
 const Piano = ({ octave = 4, onKeyPress }: PianoProps) => {
-  const whiteKeyWidth = 30;
+  const whiteKeyWidth = 25;
   const whiteKeyNotes = ["C", "D", "E", "F", "G", "A", "B"];
   const blackKeyNotes = ["C#", "D#", "F#", "G#", "A#"];
   const blackKeyPositions = [0, 1, 3, 4, 5];
@@ -164,7 +164,7 @@ function App() {
           overflow="hidden"
           borderRadius="xl"
           boxShadow="md"
-        margin="4px"
+          margin="4px"
         >
           <Piano octave={1} onKeyPress={handleKeyPress} />
           <Piano octave={2} onKeyPress={handleKeyPress} />
@@ -176,7 +176,7 @@ function App() {
           overflow="hidden"
           borderRadius="xl"
           boxShadow="md"
-        margin="4px"
+          margin="4px"
         >
           <Piano octave={3} onKeyPress={handleKeyPress} />
           <Piano octave={4} onKeyPress={handleKeyPress} />
@@ -188,7 +188,7 @@ function App() {
           overflow="hidden"
           borderRadius="xl"
           boxShadow="md"
-        margin="4px"
+          margin="4px"
         >
           <Piano octave={5} onKeyPress={handleKeyPress} />
           <Piano octave={6} onKeyPress={handleKeyPress} />
@@ -200,7 +200,7 @@ function App() {
           overflow="hidden"
           borderRadius="xl"
           boxShadow="md"
-        margin="4px"
+          margin="4px"
         >
           <Piano octave={7} onKeyPress={handleKeyPress} />
           <Piano octave={8} onKeyPress={handleKeyPress} />
@@ -212,7 +212,7 @@ function App() {
           overflow="hidden"
           borderRadius="xl"
           boxShadow="md"
-        margin="4px"
+          margin="4px"
         >
           <Piano octave={9} onKeyPress={handleKeyPress} />
           <Piano octave={10} onKeyPress={handleKeyPress} />
