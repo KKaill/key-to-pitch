@@ -1,5 +1,7 @@
-# Key To Pitch
+# What
 
-ピアノの鍵盤を押すと、そのキーに対応したピッチが表示される。
+ピアノの鍵盤をクリックすると、その音に対応したピッチが表示されるwebツール
 
-[リンク](https://kkaill.github.io/key-to-pitch/)
+A web tool that displays the corresponding pitch when you click a piano key.
+
+https://kkaill.github.io/key-to-pitch/
