@@ -5,3 +5,8 @@
 A simple web tool that displays the corresponding pitch when you click a piano key.
 
 https://kkaill.github.io/key-to-pitch/
+
+> [!WARNING]
+> ホワイトモードのみ対応しています
+> 
+> This feature only supports white mode.
