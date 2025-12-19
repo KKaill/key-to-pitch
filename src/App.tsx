@@ -9,6 +9,7 @@ import {
   Clipboard,
 } from "@chakra-ui/react";
 import { Provider } from "./components/ui/provider";
+import Decimal from "decimal.js";
 
 const transKey = (note: string): number => {
   const noteList = [
@@ -28,9 +29,9 @@ const transKey = (note: string): number => {
   const keyPattern = /[A-Z]#?/;
   const matchKey = (keyPattern.exec(note) ?? ["C"])[0];
   const key = noteList.findIndex((e) => e === matchKey);
-  const octave = Number(note.replace(matchKey, "")) * 12;
-  const base = 5 + 12 * 4;
-  return Math.pow(2, (key + octave - base - 1) / 12);
+  const octave = Decimal.mul(Number(note.replace(matchKey, "")),12);
+  const base = Decimal.mul(12,4).add(5);
+  return Decimal.pow(2, octave.add(key).sub(base).sub(1).div(12)).toNumber();
 };
 
 interface WhiteKeyProps {
